@@ -1,0 +1,85 @@
+.constant //constant pool
+OBJREF 0x40
+.end-constant
+
+.main
+
+
+
+//DivCount is as follows
+
+Start:
+
+        LDC_W   OBJREF
+        
+        INVOKEVIRTUAL   divCount
+        IRETURN
+
+.end-main
+
+
+.method isMul(a, b)
+
+.var
+        modCounter
+        absVa
+        absVb
+.end-var
+
+        ILOAD   a
+        IFLT    A_Negative
+        ILOAD   a
+        ISTORE  absVa
+
+Get_Other:
+        ILOAD   b
+        IFLT    B_Negative
+        ILOAD   b
+        ISTORE  absVb
+        GOTO    MOD
+
+A_Negative:
+        ILOAD   a
+        INEG
+        ISTORE  absVa
+        GOTO    Get_Other
+B_Negative:
+        ILOAD   b
+        INEG
+        ISTORE  absVb
+
+MOD:
+        BIPUSH  0
+        ISTORE  modCounter
+MODLOOP:
+        ILOAD   modCounter
+        ILOAD   absVa
+        IADD    
+        ISTORE  modCounter
+
+        ILOAD   absVb
+        ILOAD   modCounter
+        ISUB    
+        IFEQ    RETURNT
+        ILOAD   absVb
+        ILOAD   modCounter
+        ISUB    
+        IFGT    MODLOOP
+        GOTO    RETURNF
+        
+
+
+ReturnT:
+        BIPUSH  1
+        IRETURN
+
+ReturnF:    
+        BIPUSH  0
+        IRETURN
+
+
+
+
+
+
+
