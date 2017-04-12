@@ -1,0 +1,154 @@
+.constant //constant pool
+OBJREF 0x40
+.end-constant
+
+.main
+
+
+
+//DivCount is as follows
+
+Start:
+
+        LDC_W   OBJREF
+        
+        INVOKEVIRTUAL   divCount
+        IRETURN
+
+.end-main
+
+
+.method divCount(a)
+
+.var
+        numbOfDivisors
+        limit
+        j
+        absV
+        modCounter
+        divCounter
+        temp
+.end-var
+
+        ILOAD   a
+        IFLT    A_Negative
+        ILOAD   a
+        ISTORE  absV
+
+StoreLimit:
+        BIPUSH  0
+        ISTORE  numbOfDivisors
+        GOTO    IF1
+
+A_Negative:
+        ILOAD   a
+        INEG
+        ISTORE  absvalue1
+        GOTO    StoreLimit
+
+IF1:    
+        ILOAD   absV
+        BIPUSH  1
+        ISUB
+        IFEQ    Return1
+        BIPUSH  1
+        ISTORE  j
+
+LOOPCHECK:
+        ILOAD   j
+        BIPUSH  1
+        IADD
+        ISTORE  J
+
+        ILOAD   limit
+        ILOAD   j
+        ISUB    
+        IFEQ    Return2
+
+
+IF2:    
+        ILOAD   absV
+        ISTORE  temp
+        BIPUSH  0
+        ISTORE  limit
+IF2Loop:
+        ILOAD   limit
+        BIPUSH  1
+        IADD    
+        ISTORE  limit
+
+        
+        ILOAD   temp
+        ILOAD   j
+        ISUB
+        ISTORE  temp
+
+        ILOAD   temp
+        IFEQ    ENDIF2
+        GOTO    IF2Loop
+
+ENDIF2:
+        ILOAD   limit
+        ILOAD   j
+        ISUB
+        IFEQ    IF3
+        GOTO    ENDIF3
+IF3:    
+        ILOAD   numOfDivisors
+        BIPUSH  1
+        IADD
+        ISTORE  numOfDivisors
+        
+ 
+ENDIF3:
+        ILOAD   numOfDivisors
+        BIPUSH  1
+        IADD
+        ISTORE  numOfDivisors
+        GOTO    LOOPCHECK
+
+Return1:
+        BIPUSH  1
+        IRETURN
+
+Return2:
+        ILOAD numbOfDivisors
+        IRETURN
+
+
+
+
+
+MOD:
+        BIPUSH  0
+        ISTORE  modCounter
+MODLOOP:
+        ILOAD   modCounter
+        ILOAD   j
+        IADD    
+        ISTORE  modCounter
+
+        ILOAD   absV
+        ILOAD   modCounter
+        ISUB    
+        IFEQ    IF2
+        ILOAD   absV
+        ILOAD   modCounter
+        ISUB    
+        IFGT    MODLOOP
+        GOTO    LOOPCHECK
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
