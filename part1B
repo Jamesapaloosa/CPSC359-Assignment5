@@ -1,4 +1,4 @@
-.constant //constant pool
+..constant //constant pool
 OBJREF 0x40
 .end-constant
 
@@ -138,17 +138,4 @@ MODLOOP:
         IFGT    MODLOOP
         GOTO    LOOPCHECK
         
-
-
-
-
-
-
-
-
-
-
-
-
-
 
